@@ -1,0 +1,52 @@
+{% extends 'base/main.html' %}
+{% block content %} 
+
+<div class="header-bar">
+  <div>
+    <h1>Hello {{request.user|title}}</h1> 
+    <h3 style ="margin : 0">You have <i>{{count}}</i> incomplete task</h3> 
+  </div>
+  <!-- request.user|title this will responsible for if username 1st letter is in lowercase then it will do uppercase -->
+</div>
+
+
+
+{% if request.user.is_authenticated %}  
+<!-- <p>{{request.user}}</p> -->
+<a href="{% url 'logout' %}">Log Out</a>
+{% else %} 
+<a href="{% url 'login' %}">Login</a>
+
+{% endif %} 
+
+
+
+<h1>My Todo List {{color}}</h1>
+<a href="http://127.0.0.1:8000/task-create/">Add Item</a>
+<form method="GET">
+  <input type="text" name="search-area" value="{{search_input}}">
+  <input type="submit" value="search">
+</form>
+<table>
+  <tr>
+    <th>Item</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  {% for task in tasks %}
+  <tr>
+    <td>{{task.title}}</td>
+    <td><a href="{% url 'task' task.id %}">View</a></td>
+    <td><a href="{% url 'task-update' task.id %}">Edit</a></td>
+    <td><a href="{% url 'task-delete' task.id %}">Delete</a></td>
+  </tr>
+  {% empty %}
+  <h3>No item in the list</h3>
+
+  {% endfor %}
+</table>
+
+{% endblock content %}
+
+

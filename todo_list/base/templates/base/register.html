@@ -1,0 +1,18 @@
+{% extends 'base/main.html' %}
+
+{% block content %}
+
+<h1>Todo-List</h1>
+
+<h1>Register</h1>
+{% comment %} all the result in the form will come from UserCreationForm..built in form from django. {% endcomment %}
+
+<form action="" method="POST">
+    {% csrf_token %} 
+    {{form.as_p}}
+    <input type="submit" value="Register">
+</form>
+
+<p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+
+{% endblock content %}
